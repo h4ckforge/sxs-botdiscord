@@ -4,8 +4,8 @@
 .env.*.local
 
 # Logs
+log/
 *.log
-bot.log
 
 # Python
 __pycache__/
@@ -33,3 +33,8 @@ bot.log*
 
 # Backup
 .backup/
+
+# Scripts de prueba (no versionar)
+send_dm.py
+send_escalation.py
+files.zip

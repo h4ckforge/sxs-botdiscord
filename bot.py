@@ -8,7 +8,8 @@ from cogs.eventos import EventoViewPersistente
 
 # Configurar logging a archivo + consola
 # Formato: 2026-05-13 13:48:34 INFO     discord.client logging in using static token
-log_file = "bot.log"
+os.makedirs("log", exist_ok=True)
+log_file = "log/bot.log"
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)-8s %(name)s %(message)s",
