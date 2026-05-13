@@ -229,6 +229,89 @@ sxs-botdiscord/
 
 ---
 
+---
+
+## 🔄 Persistencia (Mantener el bot corriendo)
+
+Por defecto, el bot se cierra al cerrar la terminal. Para mantenerlo corriendo 24/7:
+
+### Windows — NSSM (Non-Sucking Service Manager)
+
+1. Descargar NSSM desde https://nssm.cc/download
+2. Extraer y copiar `nssm.exe` a una carpeta en el PATH, o usar la ruta completa
+
+```bash
+# 1. Instalar como servicio (ejecutar como Administrador)
+nssm install ANNA-Bot "C:\ruta\a\python.exe" "C:\ruta\a\sxs-botdiscord\bot.py"
+
+# 2. Configurar el working directory
+nssm set ANNA-Bot AppDirectory "C:\ruta\a\sxs-botdiscord"
+
+# 3. Configurar variables de entorno (necesario para .env)
+nssm set ANNA-Bot AppEnvironment "DISCORD_TOKEN=tu_token_aqui"
+
+# 4. Iniciar el servicio
+nssm start ANNA-Bot
+
+# 5. Ver estado
+nssm status ANNA-Bot
+```
+
+**Comandos útiles:**
+```bash
+nssm start ANNA-Bot    # Iniciar
+nssm stop ANNA-Bot     # Detener
+nssm restart ANNA-Bot  # Reiniciar
+nssm edit ANNA-Bot     # Editar configuración
+nssm remove ANNA-Bot   # Desinstalar
+```
+
+### Windows — Task Scheduler (alternativa sin NSSM)
+
+1. Abrir Task Scheduler (`taskschd.msc`)
+2. **Crear tarea básica:**
+   - Nombre: `ANNA-Bot`
+   - Trigger: `Al iniciar`
+   - Acción: `Iniciar un programa`
+   - Programa: `python`
+   - Argumentos: `bot.py`
+   - Iniciar en: `C:\ruta\a\sxs-botdiscord`
+
+3. Marcar "Ejecutar tanto si el usuario ha iniciado sesión como si no"
+
+### Linux — Systemd
+
+```bash
+# 1. Crear servicio
+sudo nano /etc/systemd/system/anna-bot.service
+```
+
+```ini
+[Unit]
+Description=ANNA Discord Bot
+After=network.target
+
+[Service]
+Type=simple
+User=tu_usuario
+WorkingDirectory=/home/tu_usuario/sxs-botdiscord
+ExecStart=/usr/bin/python3 bot.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+# 2. Activar
+sudo systemctl daemon-reload
+sudo systemctl enable anna-bot
+sudo systemctl start anna-bot
+```
+
+---
+
 ## 🔒 Seguridad
 
 Este proyecto implementa buenas prácticas de seguridad:
