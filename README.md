@@ -62,7 +62,7 @@
 #### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/sxs-botdiscord.git
+git clone https://github.com/h4ckforge/sxs-botdiscord.git
 cd sxs-botdiscord
 ```
 
