@@ -219,18 +219,19 @@ Cuando hay nueva versión disponible, llega un mensaje automático al canal de D
 Para actualizar en el servidor:
 
 ```bash
-# Conectar por SSH al servidor y ejecutar:
-cd /opt/bot
+cd ~/projects/sxs-botdiscord  # (o donde hayas clonado el repo)
 ./update.sh
 
 # O especificar versión:
-./update.sh 1.0.1
+./update.sh 1.0.4
 ```
 
 El script:
 1. Descarga los últimos cambios de Git
 2. Instala las dependencias actualizadas
 3. Reinicia el servicio automáticamente
+
+> **Nota:** Si instalaste en una ruta diferente, editá `BOT_DIR` en `update.sh` línea 8.
 
 ---
 
