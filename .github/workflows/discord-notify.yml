@@ -1,0 +1,21 @@
+name: Discord Notification
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl -H "Content-Type: application/json" \
+               -d "{\"content\": \"🎉 **Nueva version disponible!**\n📦 Version: \`$VERSION\`\n\nPara actualizar en produccion:\n\`\`\`bash\ncd /opt/bot\n./update.sh $VERSION\n\`\`\`\"}" \
+               "$DISCORD_WEBHOOK"
