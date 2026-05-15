@@ -69,11 +69,13 @@ cd sxs-botdiscord
 #### 2. Crear entorno virtual (recomendado)
 
 ```bash
-python -m venv venv
-# Windows
-venv\Scripts\activate
+python3 -m venv venv
 # Linux/Mac
 source venv/bin/activate
+# Windows (PowerShell)
+.\venv\Scripts\Activate.ps1
+# Windows (CMD)
+venv\Scripts\activate.bat
 ```
 
 #### 3. Instalar dependencias
