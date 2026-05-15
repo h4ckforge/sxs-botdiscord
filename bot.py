@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.ext.commands import CommandOnCooldown
 from dotenv import load_dotenv
 import os
 import logging
@@ -50,13 +51,46 @@ async def on_ready():
     bot.add_view(EventoViewPersistente())
     print(f'Bot conectado como {bot.user}')
 
+@bot.check
+async def global_cooldown(ctx):
+    """Rate limiting diferenciado: admins 10/60s, usuarios 3/10s"""
+    import time
+    from utils.ratelimit import is_admin
+    from discord.ext.commands import CommandOnCooldown
+
+    if ctx.command is None:
+        return True
+
+    if is_admin(ctx):
+        limit, per = 10, 60
+    else:
+        limit, per = 3, 10
+
+    key = f"{ctx.author.id}"
+    now = time.time()
+
+    if not hasattr(bot, '_cooldowns'):
+        bot._cooldowns = {}
+
+    history = bot._cooldowns.setdefault(key, [])
+    history[:] = [t for t in history if now - t < per]
+
+    if len(history) >= limit:
+        retry = round(per - (now - history[0]), 1)
+        raise CommandOnCooldown(None, retry)
+
+    history.append(now)
+    return True
+
 @bot.event
 async def on_command_error(ctx, error):
     # Loguear error completo para debugging interno
     logging.error(f"Command '{ctx.command}' by {ctx.author} in {ctx.guild}: {error}", exc_info=True)
 
     # Enviar mensaje genérico al usuario (nunca mostrar detalles internos)
-    if isinstance(error, commands.MissingRequiredArgument):
+    if isinstance(error, CommandOnCooldown):
+        await ctx.send(f"⏳ Espera {round(error.retry_after, 1)}s antes de usar otro comando.")
+    elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send(f"❌ Faltan parámetros. Uso: `!{ctx.command.name}` — escribe `!ayuda` para ver los detalles.")
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send("❌ No tienes permisos para usar este comando.")
@@ -68,5 +102,19 @@ async def on_command_error(ctx, error):
         pass  # Ignorar comandos inexistentes silenciosamente
     else:
         await ctx.send("❌ Algo salió mal. Contacta al admin.")
+
+# Cargar versión desde archivo
+def get_version():
+    try:
+        with open("VERSION.txt", "r") as f:
+            return f.read().strip()
+    except Exception:
+        return "desconocida"
+
+@bot.command(name='version')
+async def version(ctx):
+    """Muestra la versión actual del bot"""
+    ver = get_version()
+    await ctx.send(f"🤖 Bot ANNA — Versión **{ver}**")
 
 bot.run(TOKEN)

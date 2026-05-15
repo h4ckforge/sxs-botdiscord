@@ -200,6 +200,38 @@ Usa el prefijo `!` seguido del comando.
 
 ---
 
+## 📌 Versión
+
+### Consultar versión
+
+| Comando | Descripción |
+|---------|-------------|
+| `!version` | Muestra la versión actual del bot |
+
+El bot mostrará: `🤖 Bot ANNA — Versión X.X.X`
+
+### Actualizar en producción
+
+Cuando hay nueva versión disponible, llega un mensaje automático al canal de Discord.
+
+Para actualizar en el servidor:
+
+```bash
+# Conectar por SSH al servidor y ejecutar:
+cd /opt/bot
+./update.sh
+
+# O especificar versión:
+./update.sh 1.0.1
+```
+
+El script:
+1. Descarga los últimos cambios de Git
+2. Instala las dependencias actualizadas
+3. Reinicia el servicio automáticamente
+
+---
+
 ## 📂 Estructura del Proyecto
 
 ```
