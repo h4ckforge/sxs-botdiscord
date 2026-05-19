@@ -44,6 +44,7 @@ async def load_cogs():
     await bot.load_extension('cogs.eventos')
     await bot.load_extension('cogs.lista_espera')
     await bot.load_extension('cogs.escalation')
+    await bot.load_extension('cogs.manhunt-y8s1')
 
 @bot.event
 async def on_ready():

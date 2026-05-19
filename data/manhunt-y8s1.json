@@ -1,0 +1,104 @@
+{
+  "season": "Y8S1",
+  "title": "Rise Up",
+  "source": "https://old.reddit.com/r/thedivision/comments/1sad4nt/spoiler_y8s1_rise_up_scout_19_solutions/.json",
+  "scouts": [
+    {
+      "scout": 1,
+      "week": 1,
+      "location": "Federal Triangle",
+      "objectives": [
+        "Tomar **Navy Plaza** en Federal Triangle",
+        "Completar **3 Activities** en Federal Triangle",
+        "Completar **Jefferson Trade Center** en cualquier dificultad"
+      ]
+    },
+    {
+      "scout": 2,
+      "week": 2,
+      "location": "Downtown East",
+      "objectives": [
+        "Matar **25 Hyenas** en Downtown East",
+        "Eliminar **3 Hyena Snipers**",
+        "Completar **2 Hyena Bounties**"
+      ]
+    },
+    {
+      "scout": 3,
+      "week": 3,
+      "hvt": 1,
+      "location": "Constitution Hall",
+      "objectives": [
+        "Capturar el Control Point **Haunted House** en Constitution Hall",
+        "Completar actividades **Hostage Rescue**",
+        "Bounty: **The Draugr**"
+      ]
+    },
+    {
+      "scout": 4,
+      "week": 4,
+      "location": "East Mall",
+      "objectives": [
+        "Capturar **2 Control Points** en East Mall",
+        "Donar **200 supplies** a Control Points en East Mall",
+        "Completar **American History Museum** en cualquier dificultad"
+      ]
+    },
+    {
+      "scout": 5,
+      "week": 5,
+      "location": "Varias",
+      "objectives": [
+        "Completar **3 Hostile Living World Activities**",
+        "Capturar **3 Control Points**",
+        "Completar **2 Friendly Living World Activities**"
+      ]
+    },
+    {
+      "scout": 6,
+      "week": 6,
+      "hvt": 2,
+      "location": "Southwest",
+      "objectives": [
+        "Completar **Space Administration HQ** en cualquier dificultad",
+        "Capturar el Control Point **Choke** en Southwest",
+        "Bounty: **CPT Rogers**"
+      ]
+    },
+    {
+      "scout": 7,
+      "week": 7,
+      "location": "Varias",
+      "objectives": [
+        "Destruir **3 Warhounds**",
+        "Completar **2 Black Tusk Bounties**",
+        "Defender un territorio durante una **Black Tusk Retaliation**"
+      ]
+    },
+    {
+      "scout": 8,
+      "week": 8,
+      "location": "Downtown West",
+      "objectives": [
+        "Matar **3 Outcast Scorchers** en Downtown West",
+        "Detener ejecuciones públicas de **Outcast** en Downtown West",
+        "Capturar **2 Control Points** en Downtown West"
+      ]
+    },
+    {
+      "scout": 9,
+      "week": 9,
+      "hvt": 3,
+      "location": "West Potomac Park",
+      "objectives": [
+        "Capturar Control Points en **West Potomac Park**",
+        "Destruir **Warhound Convoys** en West Potomac Park",
+        "Bounty: **Alec Skinner**"
+      ]
+    }
+  ],
+  "climax": {
+    "location": "The Pentagon",
+    "objective": "Encontrar y derrotar a Jensen **\"The Director\" Sykes**"
+  }
+}
