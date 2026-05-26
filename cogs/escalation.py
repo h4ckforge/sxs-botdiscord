@@ -7,7 +7,10 @@ Sends report to configured Discord channel daily at 06:00 CLT (UTC-3)
 from discord.ext import commands, tasks
 import requests
 import asyncio
+import logging
 from datetime import datetime, timezone, timedelta
+
+logger = logging.getLogger(__name__)
 
 # Chile timezone (UTC-3)
 CLT = timezone(timedelta(hours=-3))
@@ -45,7 +48,7 @@ class Division2Cog(commands.Cog):
             next_run += timedelta(days=1)
 
         wait_seconds = (next_run - now).total_seconds()
-        print(f"[Escalation] Next report scheduled for {next_run} CLT ({wait_seconds:.0f}s)")
+        logger.info(f"[Escalation] Next report scheduled for {next_run} CLT ({wait_seconds:.0f}s)")
         await asyncio.sleep(wait_seconds)
 
     async def send_escalation_report(self):
@@ -59,19 +62,19 @@ class Division2Cog(commands.Cog):
             escalation_data = self.get_today_escalation(data, today_str)
 
             if not escalation_data:
-                print(f"[Division2] No escalation data for {today_str}")
+                logger.warning(f"[Division2] No escalation data for {today_str}")
                 return
 
             message = self.build_message(escalation_data, today_str)
             channel = self.bot.get_channel(REPORT_CHANNEL_ID)
             if channel:
                 await channel.send(message)
-                print(f"[Division2] Escalation report sent for {today_str}")
+                logger.info(f"[Division2] Escalation report sent for {today_str}")
             else:
-                print(f"[Division2] Channel {REPORT_CHANNEL_ID} not found")
+                logger.error(f"[Division2] Channel {REPORT_CHANNEL_ID} not found")
 
         except Exception as e:
-            print(f"[Division2] Error sending report: {e}")
+            logger.exception(f"[Division2] Error sending report: {e}")
 
     async def fetch_event_data(self):
         """Fetch event JSON from source"""
@@ -80,7 +83,7 @@ class Division2Cog(commands.Cog):
             response.raise_for_status()
             return response.json()
         except Exception as e:
-            print(f"[Division2] Failed to fetch data: {e}")
+            logger.exception(f"[Division2] Failed to fetch data: {e}")
             return None
 
     def get_today_escalation(self, data, today_str):
