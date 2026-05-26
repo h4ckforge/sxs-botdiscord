@@ -78,7 +78,7 @@ async def global_cooldown(ctx):
 
     if len(history) >= limit:
         retry = round(per - (now - history[0]), 1)
-        raise CommandOnCooldown(None, retry)
+        raise CommandOnCooldown(None, retry, None)
 
     history.append(now)
     return True
